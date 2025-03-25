@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primary Maths Practice Tool</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Primary Maths Practice Tool</h1>
+            <p>Practice your addition, subtraction, multiplication, and division skills!</p>
+        </header>
+        
+        <main>
+            <!-- Start Screen -->
+            <div id="start-screen" class="screen active">
+                <h2>Ready to practice your maths?</h2>
+                <p>You'll be given 100 questions covering addition, subtraction, multiplication, and division.</p>
+                <!-- Adding a direct onclick handler as backup -->
+                <button id="start-button" class="btn" onclick="startQuizDirect()">Start Practice</button>
+            </div>
+            
+            <!-- Question Screen -->
+            <div id="question-screen" class="screen">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progress" class="progress"></div>
+                    </div>
+                    <div class="question-counter">
+                        Question <span id="current-question">1</span> of 100
+                    </div>
+                </div>
+                
+                <div id="question" class="question-box"></div>
+                
+                <div class="answer-container">
+                    <input type="number" id="answer-input" placeholder="Your answer">
+                    <button id="submit-button" class="btn">Check Answer</button>
+                </div>
+                
+                <div id="feedback" class="feedback hidden"></div>
+                
+                <div class="action-buttons">
+                    <button id="show-answer-button" class="btn secondary hidden">Show Answer</button>
+                    <button id="next-button" class="btn hidden">Next Question</button>
+                </div>
+            </div>
+            
+            <!-- Results Screen -->
+            <div id="results-screen" class="screen">
+                <h2>Practice Complete!</h2>
+                <div class="results">
+                    <p>You got <span id="correct-count">0</span> out of 100 questions correct.</p>
+                    <p>Your score: <span id="percentage">0</span>%</p>
+                    <p id="encouragement" class="encouragement"></p>
+                </div>
+                <button id="restart-button" class="btn">Practice Again</button>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Primary Maths Practice Tool - For Key Stage 2 (Ages 9-11)</p>
+        </footer>
+    </div>
+    
+    <!-- Add a simple backup function in case the main script doesn't load properly -->
+    <script>
+        console.log('Page loaded');
+        
+        function startQuizDirect() {
+            console.log('Direct start button clicked');
+            // Try to access the startQuiz function from the main script
+            try {
+                window.startQuiz ? window.startQuiz() : document.getElementById('question-screen').classList.add('active');
+                document.getElementById('start-screen').classList.remove('active');
+            } catch(e) {
+                console.error('Error in backup function:', e);
+                alert('Something went wrong. Please refresh the page and try again.');
+            }
+        }
+        
+        // Add a window load handler as another fallback
+        window.onload = function() {
+            console.log('Window loaded');
+            const startBtn = document.getElementById('start-button');
+            if (startBtn) {
+                startBtn.addEventListener('click', startQuizDirect);
+                console.log('Backup click handler added');
+            }
+        };
+    </script>
+</body>
+</html>
