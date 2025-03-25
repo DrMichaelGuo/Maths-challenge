@@ -20,26 +20,7 @@ body {
     flex-direction: column;
 }
 
-header {
-    text-align: center;
-    margin-bottom: 30px;
-    padding: 20px;
-    background-color: #4caf50;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-
-h2 {
-    font-size: 2rem;
-    color: #2e7d32;
-    margin-bottom: 20px;
-}
+/* Removed header styles since the header is gone */
 
 main {
     flex: 1;
@@ -47,6 +28,7 @@ main {
     border-radius: 10px;
     padding: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Added margin to compensate for removed header */
 }
 
 .screen {
@@ -232,10 +214,6 @@ footer {
 }
 
 @media (max-width: 480px) {
-    header {
-        padding: 15px;
-    }
-    
     main {
         padding: 20px;
     }
