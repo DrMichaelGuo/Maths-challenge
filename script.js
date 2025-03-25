@@ -30,6 +30,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const percentageElement = document.getElementById('percentage');
         const encouragementElement = document.getElementById('encouragement');
         
+        // Add audio elements
+        const successSound = document.getElementById('success-sound');
+        const wrongSound = document.getElementById('wrong-sound');
+        
+        // Function to play sounds with error handling
+        function playSound(sound) {
+            try {
+                if (sound) {
+                    sound.currentTime = 0; // Reset the audio to start
+                    sound.play().catch(error => {
+                        console.error('Error playing sound:', error);
+                    });
+                }
+            } catch (error) {
+                console.error('Error playing sound:', error);
+            }
+        }
+        
         // Game state
         let questions = [];
         let currentQuestionIndex = 0;
@@ -225,6 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 feedbackElement.textContent = 'Please enter a number';
                 feedbackElement.className = 'feedback incorrect';
                 feedbackElement.classList.remove('hidden');
+                playSound(wrongSound); // Play wrong sound for invalid input
                 return;
             }
             
@@ -236,6 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 correctAnswers++;
                 showAnswerButton.classList.add('hidden');
                 nextButton.classList.remove('hidden');
+                playSound(successSound); // Play success sound
             } else {
                 // Incorrect answer
                 if (!retryAttempted) {
@@ -245,11 +265,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     answerInput.value = '';
                     answerInput.focus();
                     showAnswerButton.classList.remove('hidden');
+                    playSound(wrongSound); // Play wrong sound
                 } else {
                     feedbackElement.textContent = `Incorrect. The answer is ${currentAnswer}`;
                     feedbackElement.className = 'feedback incorrect';
                     showAnswerButton.classList.add('hidden');
                     nextButton.classList.remove('hidden');
+                    playSound(wrongSound); // Play wrong sound
                 }
             }
             
@@ -261,6 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
             feedbackElement.className = 'feedback incorrect';
             showAnswerButton.classList.add('hidden');
             nextButton.classList.remove('hidden');
+            playSound(wrongSound); // Play wrong sound when showing answer
         }
         
         function nextQuestion() {
@@ -282,6 +305,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const percentage = Math.round((correctAnswers / questions.length) * 100);
             correctCountElement.textContent = correctAnswers;
             percentageElement.textContent = percentage;
+            
+            // Play sound based on score
+            if (percentage >= 50) {
+                playSound(successSound); // Play success sound for good scores
+            } else {
+                playSound(wrongSound); // Play wrong sound for poor scores
+            }
             
             // Show encouraging message based on score
             if (percentage >= 90) {
