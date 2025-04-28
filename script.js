@@ -168,14 +168,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         function generateDivisionQuestion() {
-            // Generate integer division questions with numerator ≤ 81
-            // First, choose a divisor (1-9)
-            const divisor = Math.floor(Math.random() * 9) + 1;
+            // Generate integer division questions with dividend ≤ 144
+            // First, choose a divisor (1-12)
+            const divisor = Math.floor(Math.random() * 12) + 1;
             
-            // Then, choose a quotient (1-9)
-            const quotient = Math.floor(Math.random() * 9) + 1;
+            // Then, choose a quotient (1-12)
+            const quotient = Math.floor(Math.random() * 12) + 1;
             
-            // Calculate the dividend to ensure clean division
+            // Calculate the dividend to ensure clean division, will be ≤ 144
             const dividend = divisor * quotient;
             
             return {
